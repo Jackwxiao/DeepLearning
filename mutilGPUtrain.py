@@ -2,7 +2,7 @@
 '''
 @Project ：resnet.py 
 @File    ：mutilGPUtrain.py
-@Author  ：吴潇
+@Author  ：Jackwxiao
 @Date    ：2022/4/1 20:43 
 '''
 ### 实际上我没有多块gpu ：）
