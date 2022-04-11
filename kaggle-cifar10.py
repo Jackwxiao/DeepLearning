@@ -174,7 +174,7 @@ def reorg_cifar10_data(data_dir, valid_ratio):
 # In[7]:
 
 
-batch_size = 64 if demo else 128
+batch_size = 32 if demo else 128
 valid_ratio = 0.1
 reorg_cifar10_data(data_dir, valid_ratio)
 
@@ -324,9 +324,12 @@ def train(net, train_iter, valid_iter, num_epochs, lr, wd, devices, lr_period,
 
 # In[14]:
 
+# 将超参数设为batch_size = 128，num_epochs = 100，lr = 0.1，lr_period = 50，lr_decay = 0.1
+# devices, num_epochs, lr, wd = d2l.try_all_gpus(), 20, 2e-4, 5e-4
+# lr_period, lr_decay, net = 4, 0.9, get_net()
 
-devices, num_epochs, lr, wd = d2l.try_all_gpus(), 20, 2e-5, 5e-3
-lr_period, lr_decay, net = 4, 0.9, get_net()
+devices, num_epochs, lr, wd = d2l.try_all_gpus(), 100, 0.1e-4, 5e-4
+lr_period, lr_decay, net = 50, 0.1, get_net()
 train(net, train_iter, valid_iter, num_epochs, lr, wd, devices, lr_period,
       lr_decay)
 
