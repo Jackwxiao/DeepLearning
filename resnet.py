@@ -109,7 +109,7 @@ class Residual(nn.Module):  #@save
 
 
 blk = Residual(3,3)
-X = torch.rand(4, 3, 6, 6)
+X = torch.rand(4, 3, 6, 6) # (batch-size, channels, hight, with)
 Y = blk(X)
 Y.shape
 
@@ -157,7 +157,7 @@ def resnet_block(input_channels, num_channels, num_residuals,
     for i in range(num_residuals):
         if i == 0 and not first_block:
             blk.append(Residual(input_channels, num_channels,
-                                use_1x1conv=True, strides=2))
+                                use_1x1conv=True, strides=2)) # 通道数翻倍，高宽减半
         else:
             blk.append(Residual(num_channels, num_channels))
     return blk
@@ -206,7 +206,7 @@ net = nn.Sequential(b1, b2, b3, b4, b5,
 X = torch.rand(size=(1, 1, 224, 224))
 for layer in net:
     X = layer(X)
-    print(layer.__class__.__name__,'output shape:\t', X.shape)
+    print(layer.__class__.__name__,'output shape:\t', X.shape) # 第一个是strides =2 ,+ maxpooling  --> 56*56
 
 
 # ## [**训练模型**]
@@ -217,9 +217,9 @@ for layer in net:
 # In[9]:
 
 
-lr, num_epochs, batch_size = 0.01, 10, 128
+lr, num_epochs, batch_size = 0.01, 10, 256
 train_iter, test_iter = d2l.load_data_fashion_mnist(batch_size, resize=96)
-d2l.train_ch6(net, train_iter, test_iter, num_epochs, lr, d2l.try_gpu())
+d2l.train_ch6(net, train_iter, test_ iter, num_epochs, lr, d2l.try_gpu())
 
 
 # ## 小结

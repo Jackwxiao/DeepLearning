@@ -129,7 +129,10 @@ train_iter, _ = d2l.load_data_bananas(batch_size)
 device, net = d2l.try_gpu(), TinySSD(num_classes=1)
 trainer = torch.optim.SGD(net.parameters(), lr=0.2, weight_decay=5e-4)
 
-#定义损失函数和评价函数
+#定义损失函数和评价函数\
+# 目标检测有两种类型的损失。 第一种有关锚框类别的损失：我们可以简单地复用之前图像分类问题里一直使用的交叉熵损失函数来计算；
+# 第二种有关正类锚框偏移量的损失：预测偏移量是一个回归问题。 但是，对于这个回归问题，我们在这里不使用 3.1.3节中描述的平方损失，而是使用范数损失，即预测值和真实值之差的绝对值。
+# 掩码变量bbox_masks令负类锚框和填充锚框不参与损失的计算。 最后，我们将锚框类别和偏移量的损失相加，以获得模型的最终损失函数。
 cls_loss = nn.CrossEntropyLoss(reduction='none')
 bbox_loss = nn.L1Loss(reduction='none')
 
