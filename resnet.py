@@ -80,11 +80,11 @@ class Residual(nn.Module):  #@save
                                kernel_size=3, padding=1)
         if use_1x1conv:
             self.conv3 = nn.Conv2d(input_channels, num_channels,
-                                   kernel_size=1, stride=strides)
+                                   kernel_size=1, stride=strides) ## 1*1卷积
         else:
             self.conv3 = None
         self.bn1 = nn.BatchNorm2d(num_channels)
-        self.bn2 = nn.BatchNorm2d(num_channels)
+        self.bn2 = nn.BatchNorm2d(num_channels) ## 每个bn的参数不同，各学各的参数
 
     def forward(self, X):
         Y = F.relu(self.bn1(self.conv1(X)))
